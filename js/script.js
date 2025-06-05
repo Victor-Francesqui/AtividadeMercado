@@ -22,17 +22,14 @@ const loginSection = document.getElementById('login-section');
         const notificationMessage = document.getElementById('notification-message');
         const loader = document.getElementById('loader');
 
-        // Estado da aplicação
         let allProducts = [];
         let cart = [];
         let isLoggedIn = false;
 
-        // Constantes
         const API_URL = 'https://fakestoreapi.com/products';
         const CART_STORAGE_KEY = 'mercadinhoDigitalCart';
         const AUTH_STORAGE_KEY = 'mercadinhoDigitalAuth';
 
-        // Funções Auxiliares
         function showLoader() {
             loader.classList.remove('hidden');
         }
@@ -74,7 +71,6 @@ const loginSection = document.getElementById('login-section');
             updateCartIcon();
         }
 
-        // Funções de Autenticação
         function handleLogin(event) {
             event.preventDefault();
             const username = loginForm.username.value;
@@ -98,7 +94,6 @@ const loginSection = document.getElementById('login-section');
             showNotification('Logout realizado.', 'success');
         }
 
-        // Funções do Catálogo
         async function fetchProducts() {
             showLoader();
             try {
@@ -126,11 +121,9 @@ const loginSection = document.getElementById('login-section');
             allProducts.forEach(product => {
                 const productCardDiv = `
                     <div class="bg-gray-800 rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300 ease-in-out flex flex-col">
-                        <!-- Image Container -->
                         <div class="image-container image-container-common product-card-image-container">
                             <img src="${product.image}" alt="${product.title}">
                         </div>
-                        <!-- Content Below Image -->
                         <div class="p-4 flex flex-col flex-1">
                             <div> 
                                 <h3 class="text-lg font-semibold truncate text-gray-100" title="${product.title}">${product.title}</h3>
@@ -149,7 +142,6 @@ const loginSection = document.getElementById('login-section');
             });
         }
 
-        // Funções do Carrinho
         function loadCartFromLocalStorage() {
             const storedCart = localStorage.getItem(CART_STORAGE_KEY);
             cart = storedCart ? JSON.parse(storedCart) : [];
@@ -263,7 +255,6 @@ const loginSection = document.getElementById('login-section');
             updateCartIcon();
         }
 
-        // Funções de Checkout
         function displayCheckout() {
             if (cart.length === 0) {
                 showNotification('Seu carrinho está vazio. Adicione itens antes de ir para o checkout.', 'error');
@@ -320,7 +311,6 @@ const loginSection = document.getElementById('login-section');
             checkoutForm.reset();
         }
 
-        // Event Listeners
         loginForm.addEventListener('submit', handleLogin);
 
         authButton.addEventListener('click', () => {
@@ -364,7 +354,6 @@ const loginSection = document.getElementById('login-section');
             backToCartButton.addEventListener('click', () => showSection('cart-section'));
         }
 
-        // Inicialização da Aplicação
         function init() {
             loadCartFromLocalStorage();
             const storedAuth = sessionStorage.getItem(AUTH_STORAGE_KEY);
